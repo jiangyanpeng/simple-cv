@@ -4,3 +4,4 @@ build/*
 install/*
 cmake-build-debug/*
 .idea/*
+third_party

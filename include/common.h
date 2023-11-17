@@ -1,5 +1,6 @@
 #ifndef SIMPLE_CV_COMMON_H_
 #define SIMPLE_CV_COMMON_H_
+#include <common.h>
 namespace cv {
 
 #ifdef __cplusplus
