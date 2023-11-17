@@ -15,15 +15,15 @@ public:
     Transform() {}
     virtual ~Transform() {}
 
-    //@brief  if you compile wisp into a static library, that may cause the operator to be
-    // unregistered,To solve this problem:
-    //@brief  case 1: If you want to register all operators
-    //@brief       mothod 1: use  -Wl,--whole-archive for compilation options
-    //@brief       mothod 2: call  RegisterAllOps()
-    //@brief       mothod 3: include "WispOpReg.hpp"
-    //@brief  case 2: If you want to register partial operators
-    //@brief       (1) include "XXXX_op.hpp" and Use its functions directly
-    //@brief       (2) include "XXXX_op.hpp" and use REGISTER_COMMON_ENGINE,then create op
+    ///@brief  if you compile simple.cv into a static library, that may cause the operator to be
+    /// unregistered,To solve this problem:
+    ///@note
+    /// case 1: If you want to register all operators
+    ///       mothod 1: use  -Wl,--whole-archive for compilation options
+    ///       mothod 2: call  RegisterAllOps()
+    /// case 2: If you want to register partial operators
+    ///       (1) include "XXXX.h" and Use its functions directly
+    ///       (2) include "XXXX.h" and use REGISTER_COMMON_ENGINE,then create op
     static void RegisterOps() {}
 
     ///@brief  API to inflate registered OP

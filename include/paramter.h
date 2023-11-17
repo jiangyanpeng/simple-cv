@@ -4,7 +4,6 @@
 #include "utils.h"
 
 namespace cv {
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -33,47 +32,37 @@ typedef enum {
     Rotate          = 20,
     CopyMakeBorder  = 21,
     RangeNorm       = 22,
-
-    WISP_OP_TYPE_MAKE_ENUM_32_BIT = 0xffffffff,
+    CV_TYPE_MAX     = 23,
 } OpType;
 
-///@brief param for ColorCvt
 PACKED_STRUCT({
     enum ColorCvtType {
-        GRAY8                     = 1,  /**< gray8  */
-        RGBA8888                  = 2,  /**< rgba8888 */
-        RGB888                    = 3,  /**< rgb888 */
-        RGB888_PLANAR             = 4,  /**< rgb888 RRRRRR:GGGGGG:BBBBBB */
-        BGRA8888                  = 5,  /**< bgra8888 */
-        BGR888                    = 6,  /**< bgr888 */
-        BGR888_PLANAR             = 7,  /**< bgr888 BBBBBB:GGGGGG:RRRRRR */
-        YUV420P                   = 8,  /**< yuv420p */
-        NV12                      = 9,  /**< YUV  4:2:0 YYYY:UV */
-        NV21                      = 10, /**< YUV  4:2:0 YYYY:VU */
-        GRAY32                    = 11, /**< gray32*/
-        RGB323232                 = 12, /**< rgb323232 fp32*/
-        RGB323232_PLANAR          = 13, /**< rgb323232 fp32  RRRRRR:GGGGGG:BBBBBB*/
-        BGR323232                 = 14, /**< bgr323232 fp32*/
-        BGR323232_PLANAR          = 15, /**< bgr323232 fp32 BBBBBB:GGGGGG:RRRRRR*/
-        GRAY16                    = 16, /**< gray16*/
-        RGB161616                 = 17, /**< rgb161616 fp16*/
-        RGB161616_PLANAR          = 18, /**< rgb161616 fp16  RRRRRR:GGGGGG:BBBBBB*/
-        BGR161616                 = 19, /**< bgr161616 fp16*/
-        BGR161616_PLANAR          = 20, /**< bgr161616 fp16 BBBBBB:GGGGGG:RRRRRR*/
-        FLOAT32C4                 = 21, /**< fp32 channel ==4 */
-        NV12_DETACH               = 22, /**< Y/UV not Contiguous memory*/
-        NV21_DETACH               = 23, /**< Y/UV not Contiguous memory*/
-        YUYV                      = 24, /**< YUV422 PACKED*/
-        UYVY                      = 25, /**< YUV422 PACKED*/
-        YV12                      = 26, /**< YUV  4:2:0 YYYYYYYY:VVUU */
-        YU12                      = 27, /**< YUV  4:2:0 YYYYYYYY:UUVV */
-        COLORCVT_MAKE_ENUM_32_BIT = 0xffffffff,
+        BGR2NV21     = 0,
+        NV212BGR     = 1,
+        NV212RGB     = 2,
+        RGB2NV21     = 3,
+        BGR2NV12     = 4,
+        NV122BGR     = 5,
+        BGR2GRAY     = 6,
+        GRAY2BGR     = 7,
+        BGR2BGRA     = 8,
+        BGRA2BGR     = 9,
+        BGR2RGB      = 10,
+        YUV2GRAY_420 = 11,
+        RGB2NV12     = 12,
+        NV122RGB     = 13,
+        RGB2YV12     = 14,
+        BGR2YV12     = 15,
+        RGB2GRAY     = 16,
+        GRAY2RGB     = 17,
+        RGB2BGR      = 18,
+        NV122NV21    = 19,
+        NV212NV12    = 20
     };
-    ColorCvtType src_type; // Optional : Can be automatically detected by op input
-    ColorCvtType dst_type;
+    ColorCvtType convect_type;
 } ColorCvtParam)
 
-///@brief param for Crop
+
 PACKED_STRUCT({
     unsigned int left;
     unsigned int top;
@@ -81,51 +70,51 @@ PACKED_STRUCT({
     unsigned int width;
 } CropParam)
 
+// clang-format off
 PACKED_STRUCT({
-    unsigned int flip_code; /**< 0: x-axis flip, 1: y-axis flip */
+    unsigned int flip_code;
 } FlipParam)
 
-///@brief param for Rotate
-PACKED_STRUCT({ unsigned int rotate_degree; } RotateParam)
+PACKED_STRUCT({ 
+    unsigned int rotate_degree; 
+} RotateParam)
 
-///@brief param for CopyMakeBorder
+// clang-format on
 PACKED_STRUCT({
     int top;
     int left;
     int bottom;
     int right;
     enum BorderType {
-        CONSTANT,
-        REPLICATE,
-        REFLECT,
-        WRAP,
-        REFLECT_101,
-        BORDER_MAKE_ENUM_32_BIT = 0xffffffff,
+        CONSTANT    = 0,
+        REPLICATE   = 1,
+        REFLECT     = 2,
+        WRAP        = 3,
+        REFLECT_101 = 4,
+        BORDER_MAX  = 5,
     };
     BorderType type;
     float border_val;
 } CopyMakeBorderParam)
 
-///@brief param for Resize
 PACKED_STRUCT({
     enum ResizeType {
-        NEAREST,
-        LINEAR,
-        AREA,
-        RESIZE_MAKE_ENUM_32_BIT = 0xffffffff,
+        NEAREST    = 0,
+        LINEAR     = 1,
+        AREA       = 2,
+        RESIZE_MAX = 3,
     };
     ResizeType type;
     unsigned int height;
     unsigned int width;
 } ResizeParam)
 
-///@brief param for CropResize
 PACKED_STRUCT({
     enum ResizeType {
-        NEAREST,
-        LINEAR,
-        AREA,
-        RESIZE_MAKE_ENUM_32_BIT = 0xffffffff,
+        NEAREST    = 0,
+        LINEAR     = 1,
+        AREA       = 2,
+        RESIZE_MAX = 3,
     };
     ResizeType type;
     unsigned int crop_left;
@@ -136,16 +125,15 @@ PACKED_STRUCT({
     unsigned int resize_width;
 } CropResizeParam)
 
-///@brief param for warpaffine
 PACKED_STRUCT({
     enum WarpAffineType {
-        NEAREST,
-        LINEAR,
-        WARP_AFFINE_MAKE_ENUM_32_BIT = 0xffffffff,
+        NEAREST         = 0,
+        LINEAR          = 1,
+        WARP_AFFINE_MAX = 2,
     };
     enum WarpAffineBorderType {
-        CONSTANT,
-        BORDER_MAKE_ENUM_32_BIT = 0xffffffff,
+        CONSTANT        = 0,
+        BORDER_TYPE_MAX = 1,
     };
     WarpAffineType type;
     WarpAffineBorderType border_type;
@@ -153,72 +141,61 @@ PACKED_STRUCT({
     unsigned int height;
     unsigned int width;
     unsigned char border_val;
-    unsigned char rsv1; // need align
-    unsigned char rsv2; // need align
-    unsigned char rsv3; // need align
 } WarpAffineParam)
 
 ///@brief param for WarpPerspective
 PACKED_STRUCT({
     enum WarpPerspectiveType {
-        NEAREST,
-        LINEAR,
-        WARP_AFFINE_MAKE_ENUM_32_BIT = 0xffffffff,
+        NEAREST         = 0,
+        LINEAR          = 1,
+        WARP_AFFINE_MAX = 2,
     };
     enum WarpPerspectiveBorderType {
-        CONSTANT                = 0,
-        REPLICATE               = 1,
-        TRANSPARENT             = 5,
-        BORDER_MAKE_ENUM_32_BIT = 0xffffffff,
+        CONSTANT        = 0,
+        REPLICATE       = 1,
+        TRANSPARENT     = 2,
+        BORDER_TYPE_MAX = 3,
     };
     WarpPerspectiveType type;
     WarpPerspectiveBorderType border_type;
-    float affine_mat[9]; // 3x3 matrix
+    float affine_mat[9];
     unsigned int height;
     unsigned int width;
     unsigned char border_val;
-    unsigned char rsv1; // need align
-    unsigned char rsv2; // need align
-    unsigned char rsv3; // need align
 } WarpPerspectiveParam)
 
-///@brief param for Pad
 PACKED_STRUCT({
     unsigned int left;
     unsigned int top;
     unsigned int height;
     unsigned int width;
     float pad_val;
-    unsigned char rsv1; // need align
-    unsigned char rsv2; // need align
-    unsigned char rsv3; // need align
 } PadParam)
 
-///@brief param for Norm
+
 PACKED_STRUCT({
-    float mean[3]; // GRAY: mean[0] , BGR : mean[0-2]
-    float std[3];  // GRAY: std[0] , BGR : std[0-2]
+    float mean[3];
+    float std[3];
 } PixelNormParam)
 
-///@brief param for range Norm
+
 PACKED_STRUCT({
-    float min; // min value for norm
-    float max; // max value for norm
+    float min;
+    float max;
 } RangeNormParam)
 
 
-///@brief param for ConvertTo
 PACKED_STRUCT({
     enum ConvertType {
-        U8_TO_FP32,
-        FP32_TO_U8,
-        CVT_MAKE_ENUM_32_BIT = 0xffffffff,
+        U8_TO_FP32   = 0,
+        FP32_TO_U8   = 1,
+        CVT_MAX_TYPE = 2,
     };
     ConvertType type;
 } ConvertToParam)
-
 #ifdef __cplusplus
 } // extern "C"
 #endif
+
 } // namespace cv
 #endif // SIMPLE_CV_PARAMTER_H_

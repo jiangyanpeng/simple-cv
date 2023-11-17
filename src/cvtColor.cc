@@ -31,11 +31,11 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
     SIMPLE_LOG_DEBUG("cvtColor::Run Start");
     MStatus ret = MStatus::M_OK;
     do {
-        if (input->GetPixelFormat() == static_cast<PixelFormat>(param_->dst_type)) {
+        if (input->GetPixelFormat() == static_cast<PixelFormat>(param_->convect_type)) {
             output = input;
             break;
         }
-        auto dst_format = static_cast<PixelFormat>(param_->dst_type);
+        auto dst_format = static_cast<PixelFormat>(param_->convect_type);
         if (op_inplace_) {
             output = std::make_shared<base::Image>(*(input.get()), dst_format);
         } else {
@@ -51,7 +51,7 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
             ret = MStatus::M_INTERNAL_FAILED;
             break;
         }
-        // todo
+
     } while (0);
     SIMPLE_LOG_DEBUG("cvtColor::Run End");
     return ret;

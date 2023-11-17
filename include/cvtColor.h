@@ -39,7 +39,6 @@ public:
     // static MStatus RGBA2BGR_43(const FastcvDesc& src, const FastcvDesc& dst);
 
 protected:
-    // virtual bool RunByPass(const std::vector<std::shared_ptr<base::Image>>& inputs) override;
     ColorCvtParam* param_;
 
 protected:
