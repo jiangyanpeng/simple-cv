@@ -8,10 +8,14 @@ SIMPLE_INLINE void swap_element_u8(uint8_t* data, int index_a, int index_b) {
     data[index_b] = tmp;
 }
 
-/// bbbgggrrr
-int rgb2bgr(const uint8_t* rgb, int w, int h, int stride, uint8_t* bgr) {
+void convert_rgb_to_bgr_planner(const uint8_t* rgb,
+                                uint32_t w,
+                                uint32_t h,
+                                uint32_t stride,
+                                uint8_t* bgr) {
     if (!rgb || !bgr) {
-        return -1;
+        bgr = nullptr;
+        return;
     }
 
     const int wgap = stride - w * 3;
@@ -108,8 +112,6 @@ int rgb2bgr(const uint8_t* rgb, int w, int h, int stride, uint8_t* bgr) {
 
         rgb += wgap;
     }
-
-    return 0;
 }
 
 void convert_bgr_to_rgb_packed(const uint8_t* src,
@@ -441,7 +443,7 @@ void convert_planar_to_package_c3(const uint8_t* src,
     }
 }
 
-void yuv420sp2rgb(const uint8_t* yuv420sp, int w, int h, uint8_t* rgb) {
+void convert_yuv420sp_to_rgb_packed(const uint8_t* yuv420sp, uint32_t w, uint32_t h, uint8_t* rgb) {
     const uint8_t* yptr  = yuv420sp;
     const uint8_t* vuptr = yuv420sp + w * h;
 

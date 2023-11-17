@@ -20,7 +20,7 @@ void get_rotation_matrix(float angle, float scale, float dx, float dy, float* tm
 
 void get_affine_transform(const float* points_from,
                           const float* points_to,
-                          int num_point,
+                          uint32_t num_point,
                           float* tm) {
     float ma[4][4] = {{0.f}};
     float mb[4]    = {0.f};
@@ -133,15 +133,15 @@ void invert_affine_transform(const float* tm, float* tm_inv) {
 }
 
 void warpaffine_bilinear_c1_impl(const uint8_t* src,
-                                 int srcw,
-                                 int srch,
-                                 int srcstride,
+                                 uint32_t srcw,
+                                 uint32_t srch,
+                                 uint32_t srcstride,
                                  uint8_t* dst,
-                                 int w,
-                                 int h,
-                                 int stride,
+                                 uint32_t w,
+                                 uint32_t h,
+                                 uint32_t stride,
                                  const float* tm,
-                                 int type,
+                                 uint32_t type,
                                  unsigned int v) {
     const uint8_t* border_color = (const uint8_t*)&v;
     const int wgap              = stride - w;
@@ -455,15 +455,15 @@ void warpaffine_bilinear_c1_impl(const uint8_t* src,
 }
 
 void warpaffine_bilinear_c2_impl(const uint8_t* src,
-                                 int srcw,
-                                 int srch,
-                                 int srcstride,
+                                 uint32_t srcw,
+                                 uint32_t srch,
+                                 uint32_t srcstride,
                                  uint8_t* dst,
-                                 int w,
-                                 int h,
-                                 int stride,
+                                 uint32_t w,
+                                 uint32_t h,
+                                 uint32_t stride,
                                  const float* tm,
-                                 int type,
+                                 uint32_t type,
                                  unsigned int v) {
     const uint8_t* border_color = (const uint8_t*)&v;
     const int wgap              = stride - w * 2;
@@ -830,15 +830,15 @@ void warpaffine_bilinear_c2_impl(const uint8_t* src,
 }
 
 void warpaffine_bilinear_c3_impl(const uint8_t* src,
-                                 int srcw,
-                                 int srch,
-                                 int srcstride,
+                                 uint32_t srcw,
+                                 uint32_t srch,
+                                 uint32_t srcstride,
                                  uint8_t* dst,
-                                 int w,
-                                 int h,
-                                 int stride,
+                                 uint32_t w,
+                                 uint32_t h,
+                                 uint32_t stride,
                                  const float* tm,
-                                 int type,
+                                 uint32_t type,
                                  unsigned int v) {
     const uint8_t* border_color = (const uint8_t*)&v;
     const int wgap              = stride - w * 3;
@@ -1277,15 +1277,15 @@ void warpaffine_bilinear_c3_impl(const uint8_t* src,
 }
 
 void warpaffine_bilinear_c4_impl(const uint8_t* src,
-                                 int srcw,
-                                 int srch,
-                                 int srcstride,
+                                 uint32_t srcw,
+                                 uint32_t srch,
+                                 uint32_t srcstride,
                                  uint8_t* dst,
-                                 int w,
-                                 int h,
-                                 int stride,
+                                 uint32_t w,
+                                 uint32_t h,
+                                 uint32_t stride,
                                  const float* tm,
-                                 int type,
+                                 uint32_t type,
                                  unsigned int v) {
     const uint8_t* border_color = (const uint8_t*)&v;
     const int wgap              = stride - w * 4;
@@ -1814,61 +1814,61 @@ void warpaffine_bilinear_c4_impl(const uint8_t* src,
 }
 
 void warpaffine_bilinear_c1(const uint8_t* src,
-                            int srcw,
-                            int srch,
+                            uint32_t srcw,
+                            uint32_t srch,
                             uint8_t* dst,
-                            int w,
-                            int h,
+                            uint32_t w,
+                            uint32_t h,
                             const float* tm,
-                            int type,
+                            uint32_t type,
                             unsigned int v) {
     return warpaffine_bilinear_c1_impl(src, srcw, srch, srcw, dst, w, h, w, tm, type, v);
 }
 
 void warpaffine_bilinear_c2(const uint8_t* src,
-                            int srcw,
-                            int srch,
+                            uint32_t srcw,
+                            uint32_t srch,
                             uint8_t* dst,
-                            int w,
-                            int h,
+                            uint32_t w,
+                            uint32_t h,
                             const float* tm,
-                            int type,
+                            uint32_t type,
                             unsigned int v) {
     return warpaffine_bilinear_c2_impl(src, srcw, srch, srcw * 2, dst, w, h, w * 2, tm, type, v);
 }
 
 void warpaffine_bilinear_c3(const uint8_t* src,
-                            int srcw,
-                            int srch,
+                            uint32_t srcw,
+                            uint32_t srch,
                             uint8_t* dst,
-                            int w,
-                            int h,
+                            uint32_t w,
+                            uint32_t h,
                             const float* tm,
-                            int type,
+                            uint32_t type,
                             unsigned int v) {
     return warpaffine_bilinear_c3_impl(src, srcw, srch, srcw * 3, dst, w, h, w * 3, tm, type, v);
 }
 
 void warpaffine_bilinear_c4(const uint8_t* src,
-                            int srcw,
-                            int srch,
+                            uint32_t srcw,
+                            uint32_t srch,
                             uint8_t* dst,
-                            int w,
-                            int h,
+                            uint32_t w,
+                            uint32_t h,
                             const float* tm,
-                            int type,
+                            uint32_t type,
                             unsigned int v) {
     return warpaffine_bilinear_c4_impl(src, srcw, srch, srcw * 4, dst, w, h, w * 4, tm, type, v);
 }
 
 void warpaffine_bilinear_yuv420sp(const uint8_t* src,
-                                  int srcw,
-                                  int srch,
+                                  uint32_t srcw,
+                                  uint32_t srch,
                                   uint8_t* dst,
-                                  int w,
-                                  int h,
+                                  uint32_t w,
+                                  uint32_t h,
                                   const float* tm,
-                                  int type,
+                                  uint32_t type,
                                   unsigned int v) {
     // assert srcw % 2 == 0
     // assert srch % 2 == 0

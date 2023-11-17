@@ -4,13 +4,13 @@
 #include <math.h>
 namespace cv {
 void resize_bilinear_c1_impl(const uint8_t* src,
-                             int srcw,
-                             int srch,
-                             int srcstride,
+                             uint32_t srcw,
+                             uint32_t srch,
+                             uint32_t srcstride,
                              uint8_t* dst,
-                             int w,
-                             int h,
-                             int stride) {
+                             uint32_t w,
+                             uint32_t h,
+                             uint32_t stride) {
     const int INTER_RESIZE_COEF_BITS  = 11;
     const int INTER_RESIZE_COEF_SCALE = 1 << INTER_RESIZE_COEF_BITS;
     //     const int ONE=INTER_RESIZE_COEF_SCALE;
@@ -251,13 +251,13 @@ void resize_bilinear_c1_impl(const uint8_t* src,
 }
 
 void resize_bilinear_c2_impl(const uint8_t* src,
-                             int srcw,
-                             int srch,
-                             int srcstride,
+                             uint32_t srcw,
+                             uint32_t srch,
+                             uint32_t srcstride,
                              uint8_t* dst,
-                             int w,
-                             int h,
-                             int stride) {
+                             uint32_t w,
+                             uint32_t h,
+                             uint32_t stride) {
     const int INTER_RESIZE_COEF_BITS  = 11;
     const int INTER_RESIZE_COEF_SCALE = 1 << INTER_RESIZE_COEF_BITS;
     //     const int ONE=INTER_RESIZE_COEF_SCALE;
@@ -554,13 +554,13 @@ void resize_bilinear_c2_impl(const uint8_t* src,
 }
 
 void resize_bilinear_c3_impl(const uint8_t* src,
-                             int srcw,
-                             int srch,
-                             int srcstride,
+                             uint32_t srcw,
+                             uint32_t srch,
+                             uint32_t srcstride,
                              uint8_t* dst,
-                             int w,
-                             int h,
-                             int stride) {
+                             uint32_t w,
+                             uint32_t h,
+                             uint32_t stride) {
     const int INTER_RESIZE_COEF_BITS  = 11;
     const int INTER_RESIZE_COEF_SCALE = 1 << INTER_RESIZE_COEF_BITS;
     //     const int ONE=INTER_RESIZE_COEF_SCALE;
@@ -1159,23 +1159,48 @@ void resize_bilinear_c4_impl(const uint8_t* src,
     base::fast_free(buf);
 }
 
-void resize_bilinear_c1(const uint8_t* src, int srcw, int srch, uint8_t* dst, int w, int h) {
+void resize_bilinear_c1(const uint8_t* src,
+                        uint32_t srcw,
+                        uint32_t srch,
+                        uint8_t* dst,
+                        uint32_t w,
+                        uint32_t h) {
     return resize_bilinear_c1_impl(src, srcw, srch, srcw, dst, w, h, w);
 }
 
-void resize_bilinear_c2(const uint8_t* src, int srcw, int srch, uint8_t* dst, int w, int h) {
+void resize_bilinear_c2(const uint8_t* src,
+                        uint32_t srcw,
+                        uint32_t srch,
+                        uint8_t* dst,
+                        uint32_t w,
+                        uint32_t h) {
     return resize_bilinear_c2_impl(src, srcw, srch, srcw * 2, dst, w, h, w * 2);
 }
 
-void resize_bilinear_c3(const uint8_t* src, int srcw, int srch, uint8_t* dst, int w, int h) {
+void resize_bilinear_c3(const uint8_t* src,
+                        uint32_t srcw,
+                        uint32_t srch,
+                        uint8_t* dst,
+                        uint32_t w,
+                        uint32_t h) {
     return resize_bilinear_c3_impl(src, srcw, srch, srcw * 3, dst, w, h, w * 3);
 }
 
-void resize_bilinear_c4(const uint8_t* src, int srcw, int srch, uint8_t* dst, int w, int h) {
+void resize_bilinear_c4(const uint8_t* src,
+                        uint32_t srcw,
+                        uint32_t srch,
+                        uint8_t* dst,
+                        uint32_t w,
+                        uint32_t h) {
     return resize_bilinear_c3_impl(src, srcw, srch, srcw * 4, dst, w, h, w * 4);
 }
 
-void resize_bilinear_yuv420sp(const uint8_t* src, int srcw, int srch, uint8_t* dst, int w, int h) {
+void resize_bilinear_yuv420sp(const uint8_t* src,
+                              uint32_t srcw,
+                              uint32_t srch,
+                              uint8_t* dst,
+                              uint32_t w,
+                              uint32_t h) {
     // assert srcw % 2 == 0
     // assert srch % 2 == 0
     // assert w % 2 == 0

@@ -61,8 +61,8 @@ bool normalize_8uc1(const uint8_t* image,
 }
 
 bool normalize_8uc3_packed(const uint8_t* image,
-                           int w,
-                           int h,
+                           uint32_t w,
+                           uint32_t h,
                            float mean[3],
                            float std[3],
                            float* norm) {
@@ -149,8 +149,8 @@ bool normalize_8uc3_packed(const uint8_t* image,
 }
 
 bool normalize_8uc3_planner(const uint8_t* image,
-                            int w,
-                            int h,
+                            uint32_t w,
+                            uint32_t h,
                             float mean[3],
                             float std[3],
                             float* norm) {
