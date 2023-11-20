@@ -1,14 +1,14 @@
-#ifndef SIMPLE_CV_COLOT_CONVERT_H_
-#define SIMPLE_CV_COLOT_CONVERT_H_
+#ifndef SIMPLE_CV_NORM_H_
+#define SIMPLE_CV_NORM_H_
 
 #include "transform.h"
 
 namespace cv {
 
-class cvtColor final : public Transform {
+class norm final : public Transform {
 public:
-    cvtColor() {}
-    ~cvtColor() {}
+    norm() {}
+    ~norm() {}
 
     MStatus Init(const std::string& name,
                  const void* param,
@@ -20,8 +20,8 @@ public:
                 std::shared_ptr<base::Image>& output) override;
 
 private:
-    ColorCvtParam* param_;
+    NormParam* param_;
 };
 
 } // namespace cv
-#endif // SIMPLE_CV_COLOT_CONVERT_H_
+#endif // SIMPLE_CV_NORM_H_

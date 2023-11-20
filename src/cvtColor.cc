@@ -1,5 +1,5 @@
 #include "cvtColor.h"
-#include "cv/core.h"
+#include "cv/c_api.h"
 namespace cv {
 MStatus cvtColor::Init(const std::string& name,
                        const void* param,

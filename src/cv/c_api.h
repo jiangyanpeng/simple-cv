@@ -1,5 +1,5 @@
-#ifndef SIMPLE_CV_CORE_H_
-#define SIMPLE_CV_CORE_H_
+#ifndef SIMPLE_CV_C_API_H_
+#define SIMPLE_CV_C_API_H_
 #include <common.h>
 #include <intrinsic.h>
 
@@ -144,4 +144,4 @@ bool normalize_8uc3_planner(const uint8_t* image,
                             float std[3],
                             float* norm);
 } // namespace cv
-#endif // SIMPLE_CV_CORE_H_
+#endif // SIMPLE_CV_C_API_H_

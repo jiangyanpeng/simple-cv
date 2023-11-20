@@ -1,4 +1,4 @@
-#include "cv/core.h"
+#include "cv/c_api.h"
 
 namespace cv {
 

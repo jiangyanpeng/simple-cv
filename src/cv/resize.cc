@@ -1,4 +1,4 @@
-#include "cv/core.h"
+#include "cv/c_api.h"
 #include <limits.h>
 #include <manager/data_manager.h>
 #include <math.h>

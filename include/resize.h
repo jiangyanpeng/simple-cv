@@ -1,14 +1,14 @@
-#ifndef SIMPLE_CV_COLOT_CONVERT_H_
-#define SIMPLE_CV_COLOT_CONVERT_H_
+#ifndef SIMPLE_CV_RESIZE_H_
+#define SIMPLE_CV_RESIZE_H_
 
 #include "transform.h"
 
 namespace cv {
 
-class cvtColor final : public Transform {
+class resize final : public Transform {
 public:
-    cvtColor() {}
-    ~cvtColor() {}
+    resize() {}
+    ~resize() {}
 
     MStatus Init(const std::string& name,
                  const void* param,
@@ -20,8 +20,8 @@ public:
                 std::shared_ptr<base::Image>& output) override;
 
 private:
-    ColorCvtParam* param_;
+    ResizeParam* param_;
 };
 
 } // namespace cv
-#endif // SIMPLE_CV_COLOT_CONVERT_H_
+#endif // SIMPLE_CV_RESIZE_H_

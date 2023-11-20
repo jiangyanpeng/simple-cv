@@ -176,7 +176,7 @@ PACKED_STRUCT({
 PACKED_STRUCT({
     float mean[3];
     float std[3];
-} PixelNormParam)
+} NormParam)
 
 
 PACKED_STRUCT({
