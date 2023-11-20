@@ -32,6 +32,12 @@ MStatus resize::Run(const std::shared_ptr<base::Image>& input,
     SIMPLE_LOG_DEBUG("resize::Run Start");
     MStatus ret = MStatus::M_OK;
     do {
+        if (param_->type != ResizeParam::LINEAR) {
+            SIMPLE_LOG_ERROR("resize::Run not support {}", static_cast<int>(param_->type));
+            ret = MStatus::M_NOT_SUPPORT;
+            break;
+        }
+
         if (op_inplace_ && [](uint32_t in_size, uint32_t out_size) -> bool {
                 return in_size >= out_size;
             }(input->GetWidth() * input->GetHeight(), param_->height * param_->width)) {
@@ -51,11 +57,6 @@ MStatus resize::Run(const std::shared_ptr<base::Image>& input,
             ret = MStatus::M_INTERNAL_FAILED;
             break;
         }
-        if (param_->type != ResizeParam::LINEAR) {
-            SIMPLE_LOG_ERROR("resize::Run not support {}", static_cast<int>(param_->type));
-            ret = MStatus::M_NOT_SUPPORT;
-            break;
-        }
 
         if (input->GetPixelFormat() != M_PIX_FMT_NV12 ||
             input->GetPixelFormat() != M_PIX_FMT_NV21 ||
@@ -66,14 +67,6 @@ MStatus resize::Run(const std::shared_ptr<base::Image>& input,
             switch (input->GetChannel()) {
                 case 1:
                     resize_bilinear_c1(input->GetData<uint8_t>(0),
-                                       input->GetWidth(),
-                                       input->GetHeight(),
-                                       output->GetData<uint8_t>(0),
-                                       output->GetWidth(),
-                                       output->GetHeight());
-                    break;
-                case 2:
-                    resize_bilinear_c2(input->GetData<uint8_t>(0),
                                        input->GetWidth(),
                                        input->GetHeight(),
                                        output->GetData<uint8_t>(0),
