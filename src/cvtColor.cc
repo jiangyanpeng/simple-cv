@@ -1,5 +1,5 @@
 #include "cvtColor.h"
-
+#include "cv/core.h"
 namespace cv {
 MStatus cvtColor::Init(const std::string& name,
                        const void* param,
@@ -52,6 +52,101 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
             break;
         }
 
+        switch (param_->convect_type) {
+            case ColorCvtParam::BGR2NV21:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2NV21");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::NV212BGR:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV212BGR");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::RGB2NV21:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2NV21");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::RGB2NV12:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2NV12");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::NV122RGB:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122RGB");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::BGR2NV12:
+                convert_yuv420sp_to_rgb_packed(input->GetData<uint8_t>(0),
+                                               input->GetWidth(),
+                                               input->GetHeight(),
+                                               output->GetData<uint8_t>(0));
+                break;
+            case ColorCvtParam::NV122BGR:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122BGR");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::BGR2GRAY:
+                convert_bgr_to_gray_packed(input->GetData<uint8_t>(0),
+                                           input->GetWidth(),
+                                           input->GetHeight(),
+                                           input->GetStride(),
+                                           output->GetData<uint8_t>(0),
+                                           false);
+                break;
+            case ColorCvtParam::GRAY2BGR:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support GRAY2BGR");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::BGR2BGRA:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2BGRA");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::BGRA2BGR:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGRA2BGR");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::RGB2GRAY:
+                convert_bgr_to_gray_packed(input->GetData<uint8_t>(0),
+                                           input->GetWidth(),
+                                           input->GetHeight(),
+                                           input->GetStride(),
+                                           output->GetData<uint8_t>(0),
+                                           true);
+                break;
+            case ColorCvtParam::GRAY2RGB:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support GRAY2RGB");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::BGR2RGB:
+            case ColorCvtParam::RGB2BGR:
+                convert_bgr_to_rgb_packed(input->GetData<uint8_t>(0),
+                                          input->GetWidth(),
+                                          input->GetHeight(),
+                                          input->GetStride(),
+                                          output->GetData<uint8_t>(0));
+                break;
+            case ColorCvtParam::RGB2YV12:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2BGR");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::BGR2YV12:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2YV12");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::YUV2GRAY_420:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support YUV2GRAY_420");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::NV122NV21:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122NV21");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            case ColorCvtParam::NV212NV12:
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV212NV12");
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+            default:
+                ret = MStatus::M_NOT_SUPPORT;
+                break;
+        }
     } while (0);
     SIMPLE_LOG_DEBUG("cvtColor::Run End");
     return ret;
