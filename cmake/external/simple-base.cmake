@@ -3,7 +3,7 @@ include(ExternalProject)
 set(BASE_NAME simple.base)
 set(BASE_WORK_DIR ${PROJECT_SOURCE_DIR}/third_party)
 set(BASE_BUILD_DIR ${PROJECT_BINARY_DIR}/third_party/${BASE_NAME})
-set(BASE_INSTALL_DIR ${BASE_BUILD_DIR}/output)
+set(BASE_INSTALL_DIR ${PROJECT_SOURCE_DIR}/install/${BASE_NAME})
 
 set(BASE_CMAKE_ARGS)
 list(APPEND BASE_CMAKE_ARGS

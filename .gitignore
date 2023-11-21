@@ -1,7 +1,7 @@
 .vscode/*
 target/*
 build/*
-install/*
+install
 cmake-build-debug/*
 .idea/*
 third_party
