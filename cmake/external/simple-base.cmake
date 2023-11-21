@@ -59,18 +59,20 @@ ExternalProject_Add(
     BUILD_BYPRODUCTS ${BASE_INSTALL_DIR}/lib/${BASE_LIB_NAME}
 )
 
+####### 使用编译好的外部库 #########
+# step1: 使用add_library，并使用IMPORTED标志，表明使用外部库
+# step2: 使用set_preperty，指定外部库的位置
+# step3: 使用include_directories，添加头文件
 add_library(base STATIC IMPORTED)
-
 set_property(TARGET base
         PROPERTY IMPORTED_LOCATION
         ${BASE_INSTALL_DIR}/lib/${BASE_LIB_NAME})
-
 include_directories(${BASE_INSTALL_DIR}/include)
-message(${BASE_INSTALL_DIR}/include)
-list(APPEND FCV_LINK_DEPS base)
+
+list(APPEND CV_LINK_DEPS base)
 
 if(NOT BUILD_SHARED_LIBS)
-    list(APPEND FCV_EXPORT_LIBS ${BASE_INSTALL_DIR}/lib/${BASE_LIB_NAME})
+    list(APPEND CV_EXPORT_LIBS ${BASE_INSTALL_DIR}/lib/${BASE_LIB_NAME})
 endif()
 
-list(APPEND FCV_EXTERNAL_DEPS ${BASE_NAME})
+list(APPEND CV_EXTERNAL_DEPS ${BASE_NAME})

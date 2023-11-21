@@ -6,6 +6,8 @@ SET(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 SET(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 SET(CMAKE_CXX_FLAGS "${CAMKE_CXX_FLAGS} -std=c++11 -march=native -O3 -pthread")
 
+OPTION(BUILD_TEST              "Build GooleTest"            OFF)
+
 ####### EXTERNAL DEPS #######
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
 LIST(APPEND CMAKE_FIND_ROOT_PATH "${CMAKE_SOURCE_DIR}/third_party/")
@@ -48,18 +50,39 @@ ADD_LIBRARY(${SIMPLE_CV_LIBS} STATIC ${cv_src})
 ####### BUILD SHARED LIB #######
 # ADD_LIBRARY(${SIMPLE_CV_LIBS} SHARED ${cv_src})
 
-####### INSTALL PYTHON #######
-# INSTALL(DIRECTORY  
-#     ${PROJECT_SOURCE_DIR}/python DESTINATION ${PROJECT_SOURCE_DIR}/build)
+############ BUILD SAMPLE #########
+ADD_SUBDIRECTORY(samples)
+
+####### INSTALL LIBS #######
 
 ####### UINT TEST   ##########
 # ENABLE_TESTING()
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
-# SET(GTEST_LIB gtest gtest_main)
-# include(googletest)
+######### Note! Please Use GCC 5.0+ #######
+IF(BUILD_TEST)
+    cv_download_dependency(
+        "https://github.com/google/googletest.git"
+        release-1.12.1
+        gtest
+        ${PROJECT_SOURCE_DIR}/third_party)
 
-# ADD_SUBDIRECTORY(third_party/googletest)
-# INCLUDE_DIRECTORIES(third_party/googletest/include)
+    CMAKE_POLICY(PUSH)
+    OPTION(BUILD_GMOCK "Builds the googlemock subproject" OFF)
+    OPTION(
+        gtest_force_shared_crt
+        "Use shared (DLL) run-time lib even when Google Test is built as static lib."
+        ON)
 
-############ BUILD SAMPLE #########
-ADD_SUBDIRECTORY(samples)
+    IF(NOT DEFINED GTEST_DIR)
+        SET(GTEST_DIR third_party/gtest)
+    ENDIF()
+
+    ADD_SUBDIRECTORY(${GTEST_DIR})
+    SET(GTEST_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/third_party/gtest/googletest/include)
+    LIST(APPEND GTEST_LIBRARIES gtest gtest_main)
+    CMAKE_POLICY(POP)
+ENDIF(BUILD_TEST)
+
+IF(BUILD_TEST)
+    ADD_SUBDIRECTORY(tests)
+ENDIF()
