@@ -9,6 +9,12 @@ SET(CMAKE_CXX_FLAGS "${CAMKE_CXX_FLAGS} -std=c++11 -march=native -O3 -pthread")
 # SET(CMAKE_CXX_FLAGS "${CAMKE_CXX_FLAGS} -Wall -Werror -frounding-math -fsignaling-nans")
 
 OPTION(BUILD_TEST              "Build GooleTest"            OFF)
+OPTION(BUILD_USE_STB           "Use STB"                    OFF)
+
+IF(BUILD_USE_STB MATCHES ON)
+    ADD_DEFINITIONS(-DSTB_IMAGE_IMPLEMENTATION)
+	ADD_DEFINITIONS(-DSTB_IMAGE_WRITE_IMPLEMENTATION)
+ENDIF()
 
 ####### EXTERNAL DEPS #######
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/")
