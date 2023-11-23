@@ -1,6 +1,6 @@
 PROJECT(simple.cv_test)
 
-SET(TARGET_NAME simple_cv_test)
+SET(TARGET_NAME simple_cv_gtest)
 
 FILE(GLOB_RECURSE util_sources 
     ${CMAKE_CURRENT_SOURCE_DIR}/utils/*.cc 
