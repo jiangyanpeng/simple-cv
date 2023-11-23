@@ -13,7 +13,7 @@ MStatus Transform::Init(const std::string& name,
     auto ret = MStatus::M_OK;
     do {
         op_name_ = name;
-        if (nullptr == param && param_len > 0) {
+        if (nullptr != param && param_len > 0) {
             op_param_.resize(param_len);
             memcpy(op_param_.data(), param, param_len);
         }
