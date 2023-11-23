@@ -5,6 +5,7 @@
 
 #include <common.h>
 #include <image/image.h>
+#include <register.h>
 
 #include <memory>
 #include <vector>
@@ -67,4 +68,5 @@ protected:
 };
 
 } // namespace cv
+
 #endif // SIMPLE_CV_TRANSFORM_H_
