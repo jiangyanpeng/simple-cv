@@ -5,7 +5,11 @@
 #include <log.h>
 
 int main() {
-    base::Image iamge;
-    auto op = RegisterBase<cv::Transform>::GetInstance().Create("resize");
+    auto op = RegisterBase<cv::Transform>::GetInstance().Create(RESIZE);
+    ResizeParam param{
+        .type   = ResizeParam::LINEAR,
+        .height = 320,
+        .width  = 270,
+    };
     return 0;
 }
