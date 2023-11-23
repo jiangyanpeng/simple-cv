@@ -1,6 +1,6 @@
 #include "transform.h"
 #include <register.h>
-
+#include <string.h>
 namespace cv {
 MStatus Transform::Init(const std::string& name,
                         const void* param,
@@ -14,7 +14,7 @@ MStatus Transform::Init(const std::string& name,
         op_name_ = name;
         if (nullptr == param && param_len > 0) {
             op_param_.resize(param_len);
-            std::memcpy(op_param_.data(), param, param_len);
+            memcpy(op_param_.data(), param, param_len);
         }
         op_ctx_     = context;
         op_inplace_ = inplace;

@@ -4,6 +4,7 @@
 #include <random>
 #include <string>
 #include <vector>
+// #include <direct.h>
 
 template <typename T>
 int init_random(T* host_data, int n, T range_min, T range_max) {
@@ -16,6 +17,16 @@ int init_random(T* host_data, int n, T range_min, T range_max) {
 
     return 0;
 }
+
+// inline std::string kProjectPath() {
+//     const int MAX_PATH = 1024;
+//     char buffer[MAX_PATH];
+//     auto unused = getcwd(buffer, MAX_PATH);
+//     if (unused == nullptr) {
+//         return "";
+//     }
+//     return std::string(buffer);
+// }
 
 int read_binary_file(const std::string& file_path, void* buffer, long length);
 
