@@ -7,28 +7,28 @@ MStatus norm::Init(const std::string& name,
                    const size_t param_len,
                    const void* context,
                    const bool inplace) {
-    SIMPLE_LOG_DEBUG("norm::Init Start");
+    SIMPLE_LOG_DEBUG("norm::Init Start\n");
     MStatus ret = MStatus::M_OK;
     do {
         ret = Transform::Init(name, param, param_len, context, inplace);
         if (ret != MStatus::M_OK) {
-            SIMPLE_LOG_ERROR("norm::Init failed, ret = {}", MStatusStr[ret].c_str());
+            SIMPLE_LOG_ERROR("norm::Init failed, ret = %s\n", MStatusStr[ret].c_str());
             break;
         }
 
         ret = Transform::ParamCheck(op_param_, sizeof(NormParam), "norm::Init");
         if (ret != MStatus::M_OK) {
-            SIMPLE_LOG_ERROR("norm::Init failed, ret = {}", MStatusStr[ret].c_str());
+            SIMPLE_LOG_ERROR("norm::Init failed, ret = %s\n", MStatusStr[ret].c_str());
             break;
         }
         param_ = reinterpret_cast<NormParam*>(op_param_.data());
     } while (0);
-    SIMPLE_LOG_DEBUG("norm::Init End");
+    SIMPLE_LOG_DEBUG("norm::Init End\n");
     return ret;
 }
 
 MStatus norm::Run(const std::shared_ptr<base::Image>& input, std::shared_ptr<base::Image>& output) {
-    SIMPLE_LOG_DEBUG("norm::Run Start");
+    SIMPLE_LOG_DEBUG("norm::Run Start\n");
     MStatus ret = MStatus::M_OK;
     do {
 
@@ -44,13 +44,13 @@ MStatus norm::Run(const std::shared_ptr<base::Image>& input, std::shared_ptr<bas
                 dst = M_PIX_FMT_BGR323232;
                 break;
             default:
-                SIMPLE_LOG_ERROR("norm::Run not support format {}",
+                SIMPLE_LOG_ERROR("norm::Run not support format %s\n",
                                  FormatStr[input->GetPixelFormat()]);
                 break;
         }
 
         SIMPLE_LOG_DEBUG(
-            "norm::Run {} norm to {}", FormatStr[input->GetPixelFormat()], FormatStr[dst]);
+            "norm::Run %s norm to %s\n", FormatStr[input->GetPixelFormat()], FormatStr[dst]);
         output = std::make_shared<base::Image>(input->GetWidth(),
                                                input->GetHeight(),
                                                input->GetNumber(),
@@ -72,7 +72,7 @@ MStatus norm::Run(const std::shared_ptr<base::Image>& input, std::shared_ptr<bas
                 break;
         }
     } while (0);
-    SIMPLE_LOG_DEBUG("norm::Run End");
+    SIMPLE_LOG_DEBUG("norm::Run End\n");
     return ret;
 }
 } // namespace cv

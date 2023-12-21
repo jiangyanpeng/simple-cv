@@ -7,33 +7,33 @@ MStatus resize::Init(const std::string& name,
                      const size_t param_len,
                      const void* context,
                      const bool inplace) {
-    SIMPLE_LOG_DEBUG("resize::Init Start");
+    SIMPLE_LOG_DEBUG("resize::Init Start\n");
     MStatus ret = MStatus::M_OK;
     do {
         ret = Transform::Init(name, param, param_len, context, inplace);
         if (ret != MStatus::M_OK) {
-            SIMPLE_LOG_ERROR("resize::Init failed, ret = {}", MStatusStr[ret].c_str());
+            SIMPLE_LOG_ERROR("resize::Init failed, ret = %s\n", MStatusStr[ret].c_str());
             break;
         }
 
         ret = Transform::ParamCheck(op_param_, sizeof(ResizeParam), "resize::Init");
         if (ret != MStatus::M_OK) {
-            SIMPLE_LOG_ERROR("resize::Init failed, ret = {}", MStatusStr[ret].c_str());
+            SIMPLE_LOG_ERROR("resize::Init failed, ret = %s\n", MStatusStr[ret].c_str());
             break;
         }
         param_ = reinterpret_cast<ResizeParam*>(op_param_.data());
     } while (0);
-    SIMPLE_LOG_DEBUG("resize::Init End");
+    SIMPLE_LOG_DEBUG("resize::Init End\n");
     return ret;
 }
 
 MStatus resize::Run(const std::shared_ptr<base::Image>& input,
                     std::shared_ptr<base::Image>& output) {
-    SIMPLE_LOG_DEBUG("resize::Run Start");
+    SIMPLE_LOG_DEBUG("resize::Run Start\n");
     MStatus ret = MStatus::M_OK;
     do {
         if (param_->type != ResizeParam::LINEAR) {
-            SIMPLE_LOG_ERROR("resize::Run not support {}", static_cast<int>(param_->type));
+            SIMPLE_LOG_ERROR("resize::Run not support %i\n", static_cast<int>(param_->type));
             ret = MStatus::M_NOT_SUPPORT;
             break;
         }
@@ -53,7 +53,7 @@ MStatus resize::Run(const std::shared_ptr<base::Image>& input,
                                                    input->GetMemType());
         }
         if (nullptr != output) {
-            SIMPLE_LOG_ERROR("resize::Run malloc memory failed");
+            SIMPLE_LOG_ERROR("resize::Run malloc memory failed\n");
             ret = MStatus::M_INTERNAL_FAILED;
             break;
         }
@@ -90,7 +90,7 @@ MStatus resize::Run(const std::shared_ptr<base::Image>& input,
                                        output->GetHeight());
                     break;
                 default:
-                    SIMPLE_LOG_ERROR("resize::Run not support channel {}", input->GetChannel());
+                    SIMPLE_LOG_ERROR("resize::Run not support channel %i\n", input->GetChannel());
                     ret = MStatus::M_NOT_SUPPORT;
                     break;
             }
@@ -103,7 +103,7 @@ MStatus resize::Run(const std::shared_ptr<base::Image>& input,
                                      output->GetHeight());
         }
     } while (0);
-    SIMPLE_LOG_DEBUG("resize::Run End");
+    SIMPLE_LOG_DEBUG("resize::Run End\n");
     return ret;
 }
 
