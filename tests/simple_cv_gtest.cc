@@ -10,7 +10,7 @@ protected:
     void SetUp() override {
 #ifdef CONFIG_SIMPLE_BASE_ENABLE_SPDLOG
     #include <log.h>
-    global_logger.set_level(spdlog::level::off);
+    set_level(Loger::ERROR);
 #endif
         uint32_t size = kWidth * kHeight * kChannel * sizeof(u_char);
         data          = malloc(size);
@@ -18,10 +18,7 @@ protected:
             std::cerr << "read " << img_path << " failed! size: " << size << std::endl;
             return;
         }
-        TimeStamp time_stamp{
-            .tv_sec  = 0,
-            .tv_usec = 1,
-        };
+        TimeStamp time_stamp{};
         image = std::make_shared<base::Image>(kWidth, kHeight, 1, format, time_stamp, data);
     }
     void TearDown() override { Test::TearDown(); }

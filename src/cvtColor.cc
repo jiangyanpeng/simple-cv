@@ -6,29 +6,29 @@ MStatus cvtColor::Init(const std::string& name,
                        const size_t param_len,
                        const void* context,
                        const bool inplace) {
-    SIMPLE_LOG_DEBUG("cvtColor::Init Start");
+    SIMPLE_LOG_DEBUG("cvtColor::Init Start\n");
     MStatus ret = MStatus::M_OK;
     do {
         ret = Transform::Init(name, param, param_len, context, inplace);
         if (ret != MStatus::M_OK) {
-            SIMPLE_LOG_ERROR("cvtColor::Init failed, ret = {}", MStatusStr[ret].c_str());
+            SIMPLE_LOG_ERROR("cvtColor::Init failed, ret = %s\n", MStatusStr[ret].c_str());
             break;
         }
 
         ret = Transform::ParamCheck(op_param_, sizeof(ColorCvtParam), "cvtColor::Init");
         if (ret != MStatus::M_OK) {
-            SIMPLE_LOG_ERROR("cvtColor::Init failed, ret = {}", MStatusStr[ret].c_str());
+            SIMPLE_LOG_ERROR("cvtColor::Init failed, ret = %s\n", MStatusStr[ret].c_str());
             break;
         }
         param_ = reinterpret_cast<ColorCvtParam*>(op_param_.data());
     } while (0);
-    SIMPLE_LOG_DEBUG("cvtColor::Init End");
+    SIMPLE_LOG_DEBUG("cvtColor::Init End\n");
     return ret;
 }
 
 MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                       std::shared_ptr<base::Image>& output) {
-    SIMPLE_LOG_DEBUG("cvtColor::Run Start");
+    SIMPLE_LOG_DEBUG("cvtColor::Run Start\n");
     MStatus ret = MStatus::M_OK;
     do {
         if (input->GetPixelFormat() == static_cast<PixelFormat>(param_->convect_type)) {
@@ -47,30 +47,30 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                                                    input->GetMemType());
         }
         if (nullptr != output) {
-            SIMPLE_LOG_ERROR("cvtColor::Run malloc memory failed");
+            SIMPLE_LOG_ERROR("cvtColor::Run malloc memory failed\n");
             ret = MStatus::M_INTERNAL_FAILED;
             break;
         }
 
         switch (param_->convect_type) {
             case ColorCvtParam::BGR2NV21:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2NV21");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2NV21\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::NV212BGR:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support NV212BGR");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV212BGR\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::RGB2NV21:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2NV21");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2NV21\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::RGB2NV12:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2NV12");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2NV12\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::NV122RGB:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122RGB");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122RGB\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::BGR2NV12:
@@ -80,7 +80,7 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                                                output->GetData<uint8_t>(0));
                 break;
             case ColorCvtParam::NV122BGR:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122BGR");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122BGR\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::BGR2GRAY:
@@ -92,15 +92,15 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                                            false);
                 break;
             case ColorCvtParam::GRAY2BGR:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support GRAY2BGR");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support GRAY2BGR\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::BGR2BGRA:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2BGRA");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2BGRA\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::BGRA2BGR:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support BGRA2BGR");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGRA2BGR\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::RGB2GRAY:
@@ -112,7 +112,7 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                                            true);
                 break;
             case ColorCvtParam::GRAY2RGB:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support GRAY2RGB");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support GRAY2RGB\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::BGR2RGB:
@@ -124,23 +124,23 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                                           output->GetData<uint8_t>(0));
                 break;
             case ColorCvtParam::RGB2YV12:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2BGR");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support RGB2BGR\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::BGR2YV12:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2YV12");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support BGR2YV12\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::YUV2GRAY_420:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support YUV2GRAY_420");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support YUV2GRAY_420\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::NV122NV21:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122NV21");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV122NV21\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             case ColorCvtParam::NV212NV12:
-                SIMPLE_LOG_ERROR("cvtColor::Run not support NV212NV12");
+                SIMPLE_LOG_ERROR("cvtColor::Run not support NV212NV12\n");
                 ret = MStatus::M_NOT_SUPPORT;
                 break;
             default:
@@ -148,7 +148,7 @@ MStatus cvtColor::Run(const std::shared_ptr<base::Image>& input,
                 break;
         }
     } while (0);
-    SIMPLE_LOG_DEBUG("cvtColor::Run End");
+    SIMPLE_LOG_DEBUG("cvtColor::Run End\n");
     return ret;
 }
 
