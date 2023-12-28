@@ -37,7 +37,7 @@ endif()
 
 cv_download_dependency(
     "https://github.com/jiangyanpeng/simple.base.git"
-    v3.0.1
+    v3.0.5
     ${BASE_NAME}
     ${BASE_WORK_DIR}
     )

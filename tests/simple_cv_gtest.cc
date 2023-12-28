@@ -1,16 +1,15 @@
-#include <fstream>
-
 #include "cv_api.h"
 #include "utils/stb_image.h"
 #include "utils/test_util.h"
 
+#include <fstream>
 #include <gtest/gtest.h>
+#include <log.h>
 class ImageTest : public ::testing::Test {
 protected:
     void SetUp() override {
 #ifdef CONFIG_SIMPLE_BASE_ENABLE_SPDLOG
-    #include <log.h>
-    set_level(Loger::ERROR);
+        close_level();
 #endif
         uint32_t size = kWidth * kHeight * kChannel * sizeof(u_char);
         data          = malloc(size);
