@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.10)
 PROJECT("simple.cv" C CXX)
 
 ######## VERSION #######
-SET(SIMPLE_CV_VERSION "3.0.0")
+SET(SIMPLE_CV_VERSION "3.0.1")
 
 ######## COMPILE #######
 SET(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
@@ -35,7 +35,6 @@ INCLUDE(CVUtils)
 INCLUDE(external/simple-base)
 
 ######## CONFIG OPTION ######
-SET(SIMPLE_CV_VERSION "1.1.1")
 CONFIGURE_FILE(
     "${PROJECT_SOURCE_DIR}/src/config.h.in"
     "${PROJECT_BINARY_DIR}/config.h")
